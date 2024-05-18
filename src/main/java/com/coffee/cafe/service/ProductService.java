@@ -1,6 +1,6 @@
-package com.coffee.cafe.Service;
+package com.coffee.cafe.service;
 
-import com.coffee.cafe.Repository.ProductRepository;
+import com.coffee.cafe.repository.ProductRepository;
 import com.coffee.cafe.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
