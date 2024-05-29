@@ -34,7 +34,7 @@ public class CafeApplication implements CommandLineRunner {
 //		productService.save(editedProduct);
 //		System.out.println(productService.findAll());
 //
-//		productService.delete(editedProduct);
-		System.out.println(productService.findAll());
+////		productService.delete(editedProduct);
+//		System.out.println(productService.findAll());
 	}
 }
