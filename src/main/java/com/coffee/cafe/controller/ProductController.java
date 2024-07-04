@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-    private ProductService productService;
+    private final ProductService productService;
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -25,19 +25,19 @@ public class ProductController {
     public String listPage(Model model) {
         List<ProductDto> products = productService.findAllProducts();
         model.addAttribute("products", products);
-        return "list";
+        return "product/list";
     }
 
     @GetMapping(value = "/new")
     public String newPage() {
-        return "form";
+        return "product/form";
     }
 
     @GetMapping(value = "/{id}")
     public String editPage(@PathVariable Long id, Model model) {
         ProductDto product = productService.getProduct(id);
         model.addAttribute("product", product);
-        return "form";
+        return "product/form";
     }
 
     @PostMapping(value = "/save")

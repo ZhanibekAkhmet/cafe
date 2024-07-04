@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark" th:id="nav">
     <div class="container-fluid">
@@ -9,19 +9,37 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
+                <div sec:authorize="isAuthenticated()">
                 <li class="nav-item">
                     <a class="nav-link" href="/">Главная</a>
                 </li>
+                </div>
+                <div sec:authorize="isAuthenticated()">
                 <li class="nav-item">
                     <a class="nav-link" href="/product/new">Добавить кофе</a>
                 </li>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clients">Clients</a>
+                    </li>
+                </div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">Users</a>
+                    </li>
+                </div>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="/"><i class="fa-regular fa-user"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Регистрация</a></li>
-                        <li><a class="dropdown-item" href="#">Авторизация</a></li>
+                        <li><a class="dropdown-item" href="/login">Авторизация</a></li>
+                        <div sec:authorize="isAuthenticated()">
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-danger" href="/logout">Logout</a>
+                            </li>
+                        </div>
                     </ul>
                 </li>
                 <li class="nav-item">

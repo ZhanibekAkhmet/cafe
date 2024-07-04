@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head "></head>
+<head th:replace="~{fragments/head}"></head>
 <body>
-<div th:replace="fragments/nav :: nav "></div>
+<div th:replace="~{fragments/nav :: nav}"></div>
 <main>
     <div class="container-flex container mt-4">
         <h1 th:text="(${product == null} ? 'New Product' : 'Edit Product')"></h1>
@@ -33,9 +33,9 @@
         </form>
     </div>
 </main>
-<div th:replace="fragments/footer :: footer "></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
-<div th:replace="fragments/scripts"></div>
+<div th:replace="~{fragments/scripts}"></div>
 </body>
 </html>
 

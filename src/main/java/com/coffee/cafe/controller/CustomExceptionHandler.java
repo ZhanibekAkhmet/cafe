@@ -6,21 +6,31 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+
+import java.nio.file.AccessDeniedException;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
-    @ExceptionHandler(Exception.class)
-    public ModelAndView Exception(Exception ex) {
-        ModelAndView mav = new ModelAndView("/generic_error");
-        mav.addObject("exception", ex);
-        return mav;
-    }
-
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ModelAndView EntityNotFoundException(EntityNotFoundException ex) {
-        ModelAndView mav = new ModelAndView("/not_found");
-        mav.addObject("message", ex.getMessage());
-        return mav;
+    public String handleEntityNotFoundException(EntityNotFoundException ex, Model model) {
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error/not_found";
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public String handleAccessDeniedException() {
+        return "error/access_denied";
+    }
+
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleException(Exception ex, Model model) {
+        model.addAttribute("message", ex.getMessage());
+        model.addAttribute("stackTrace", ex.getStackTrace());
+        return "error/generic_error";
     }
 }
